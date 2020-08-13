@@ -1,21 +1,21 @@
 // Copyright (c) 2014-2017, MyMonero.com
-// 
+//
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without modification, are
 // permitted provided that the following conditions are met:
-// 
+//
 // 1. Redistributions of source code must retain the above copyright notice, this list of
 //    conditions and the following disclaimer.
-// 
+//
 // 2. Redistributions in binary form must reproduce the above copyright notice, this list
 //    of conditions and the following disclaimer in the documentation and/or other
 //    materials provided with the distribution.
-// 
+//
 // 3. Neither the name of the copyright holder nor the names of its contributors may be
 //    used to endorse or promote products derived from this software without specific
 //    prior written permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
 // EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
@@ -48,12 +48,12 @@ class HostedMoneroAPIClient
         ).catch(
             function(data)
             {
-                fn(data && data.data.Error 
-                    ? data.data.Error 
+                fn(data && data.data.Error
+                    ? data.data.Error
                     : "Something went wrong with getting your available balance for spending");
             }
         );
-        const requestHandle = 
+        const requestHandle =
         {
             abort: function()
             {
@@ -75,12 +75,12 @@ class HostedMoneroAPIClient
             function(data)
             {
                 fn(data
-                    && data.data.Error 
-                    ? data.data.Error 
+                    && data.data.Error
+                    ? data.data.Error
                     : "Something went wrong while getting decoy outputs");
             }
         );
-        const requestHandle = 
+        const requestHandle =
         {
             abort: function()
             {
@@ -102,12 +102,12 @@ class HostedMoneroAPIClient
             function(data)
             {
                 //console.log("submit_raw_data_error:", data);
-                fn(data && data.data.Error 
-                    ? data.data.Error 
+                fn(data && data.data.Error
+                    ? data.data.Error
                     : "Something went wrong while submitting your transaction");
             }
         );
-        const requestHandle = 
+        const requestHandle =
         {
             abort: function()
             {
@@ -180,7 +180,7 @@ thinwalletCtrls.controller('SendCoinsCtrl', function($scope, $http, $q, AccountS
     };
 
 
-    $scope.sendCoins = function(targets, payment_id) 
+    $scope.sendCoins = function(targets, payment_id)
     {
         if ($scope.submitting) {
             console.warn("Already submitting")
@@ -270,16 +270,16 @@ thinwalletCtrls.controller('SendCoinsCtrl', function($scope, $http, $q, AccountS
                     try {
                         coreBridge_instance.decode_address(oaAddress, config.nettype);
                         confirmOpenAliasAddress(
-                            domain, 
-                            oaAddress, 
-                            oaRecords[0].name, 
-                            oaRecords[0].description, 
+                            domain,
+                            oaAddress,
+                            oaRecords[0].name,
+                            oaRecords[0].description,
                             data.dnssec_used && data.secured
                         ).then(
                             function()
                             {
                                 sendTo(oaAddress, amount, domain);
-                            }, 
+                            },
                             function(err)
                             {
                                 fn(err);
@@ -308,7 +308,7 @@ thinwalletCtrls.controller('SendCoinsCtrl', function($scope, $http, $q, AccountS
             //
             function sendTo(target_address, amount, domain/*may be null*/)
             {
-                const mixin = 10; // mandatory fixed mixin for v8 Monero fork
+                const mixin = 4; 
                 let statusUpdate_messageBase = sweeping ? `Sending wallet balance…` : `Sending ${amount} XMR…`
                 function _configureWith_statusUpdate(str, code)
                 {
@@ -330,7 +330,7 @@ thinwalletCtrls.controller('SendCoinsCtrl', function($scope, $http, $q, AccountS
                 }
                 const send_args =
                 {
-                    is_sweeping: sweeping, 
+                    is_sweeping: sweeping,
                     payment_id_string: payment_id, // passed in
                     sending_amount: sweeping ? 0 : parsed_amount.toString(), // sending amount
                     from_address_string: AccountService.getAddress(),
@@ -339,7 +339,7 @@ thinwalletCtrls.controller('SendCoinsCtrl', function($scope, $http, $q, AccountS
                     pub_spendKey_string: pub_keys.spend,
                     to_address_string: target_address,
                     priority: 1,
-                    unlock_time: 0, // unlock_time 
+                    unlock_time: 0, // unlock_time
                     nettype: config.nettype,
                     //
                     get_unspent_outs_fn: function(req_params, cb)
@@ -381,10 +381,10 @@ thinwalletCtrls.controller('SendCoinsCtrl', function($scope, $http, $q, AccountS
                         const total_sent__JSBigInt = new JSBigInt(params.total_sent)
                         const tx_fee = new JSBigInt(params.used_fee)
                         const total_sent__atomicUnitString = total_sent__JSBigInt.toString()
-                        const total_sent__floatString = mymonero_core_js.monero_amount_format_utils.formatMoney(total_sent__JSBigInt) 
+                        const total_sent__floatString = mymonero_core_js.monero_amount_format_utils.formatMoney(total_sent__JSBigInt)
                         const total_sent__float = parseFloat(total_sent__floatString)
                         //
-                        const mockedTransaction = 
+                        const mockedTransaction =
                         {
                             hash: params.tx_hash,
                             mixin: "" + params.mixin,
