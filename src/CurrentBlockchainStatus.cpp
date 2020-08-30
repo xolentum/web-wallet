@@ -110,7 +110,7 @@ CurrentBlockchainStatus::update_current_blockchain_height()
 }
 
 bool
-CurrentBlockchainStatus::init_monero_blockchain()
+CurrentBlockchainStatus::init_xolentum_blockchain()
 {
     // initialize the core using the blockchain path
     return mcore->init(bc_setup.blockchain_path, bc_setup.net_type);}

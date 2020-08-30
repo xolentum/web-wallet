@@ -70,7 +70,7 @@ public:
 
     virtual uint64_t
     get_current_blockchain_height();
-    
+
     virtual uint64_t
     get_hard_fork_version() const;
 
@@ -78,7 +78,7 @@ public:
     update_current_blockchain_height();
 
     virtual bool
-    init_monero_blockchain();
+    init_xolentum_blockchain();
 
     // inject TxUnlockChecker object
     // its simplifies mocking its behavior in our
@@ -120,7 +120,7 @@ public:
                        transaction& tx, uint64_t& output_idx_in_tx);
 
     virtual tx_out_index
-    get_output_tx_and_index(uint64_t amount, 
+    get_output_tx_and_index(uint64_t amount,
                             uint64_t index) const;
 
     virtual void
@@ -128,8 +128,8 @@ public:
             uint64_t amount,
             std::vector<uint64_t> const& offsets,
             std::vector<tx_out_index>& indices) const;
-    
-    virtual uint64_t 
+
+    virtual uint64_t
     get_num_outputs(uint64_t amount) const;
 
     virtual bool
@@ -213,7 +213,7 @@ public:
 
     virtual bool
     search_thread_exist(const string& address);
-    
+
     virtual bool
     search_thread_exist(string const& address, string const& viewkey);
 
@@ -242,15 +242,15 @@ public:
     get_tx(string const& tx_hash_str, transaction& tx);
 
     virtual bool
-    get_tx_block_height(crypto::hash const& tx_hash, 
+    get_tx_block_height(crypto::hash const& tx_hash,
                         int64_t& tx_height);
 
     virtual bool
     set_new_searched_blk_no(const string& address,
                             uint64_t new_value);
-    
+
     virtual bool
-    update_acc(const string& address, 
+    update_acc(const string& address,
                XmrAccount const& _acc);
 
     virtual bool
@@ -259,14 +259,14 @@ public:
 
     virtual bool
     get_known_outputs_keys(string const& address,
-                           unordered_map<public_key, 
+                           unordered_map<public_key,
                            uint64_t>& known_outputs_keys);
 
     virtual void
     clean_search_thread_map();
 
     virtual size_t
-    thread_map_size(); 
+    thread_map_size();
 
     virtual void
     stop_search_threads();
@@ -337,12 +337,12 @@ protected:
     // this class is also the only class which can
     // use talk to monero deamon using RPC.
     std::unique_ptr<RPCCalls> rpc;
-    
+
     // any operation required to use blockchain
     // i.e., access through mcore, will be performed
     // by threads in this thread_pool. we have to
-    // have fixed and limited number of threads so that 
-    // the lmdb does not throw MDB_READERS_FULL 
+    // have fixed and limited number of threads so that
+    // the lmdb does not throw MDB_READERS_FULL
     std::unique_ptr<TP::ThreadPool> thread_pool;
 
     // vector of mempool transactions that all threads
@@ -377,7 +377,7 @@ protected:
 
 // small adapter class that will anable using
 // BlockchainCurrentStatus inside UniversalAdapter
-// for locating inputs. We do this becasuse 
+// for locating inputs. We do this becasuse
 // BlockchainCurrentStatus is using a thread pool
 // to access MicroCore and blockchain. So we don't want
 // to miss on that. Also UnversalAdapter for Inputs
@@ -386,25 +386,25 @@ class MicroCoreAdapter : public AbstractCore
 {
 public:
     MicroCoreAdapter(CurrentBlockchainStatus* _cbs);
-    
-    virtual uint64_t 
+
+    virtual uint64_t
     get_num_outputs(uint64_t amount) const override;
 
-    virtual void 
+    virtual void
     get_output_key(uint64_t amount,
                    vector<uint64_t> const& absolute_offsets,
-                   vector<cryptonote::output_data_t>& outputs) 
+                   vector<cryptonote::output_data_t>& outputs)
                     const override;
 
     virtual void
     get_output_tx_and_index(
             uint64_t amount,
             std::vector<uint64_t> const& offsets,
-            std::vector<tx_out_index>& indices) 
+            std::vector<tx_out_index>& indices)
                 const override;
 
     virtual bool
-    get_tx(crypto::hash const& tx_hash, transaction& tx) 
+    get_tx(crypto::hash const& tx_hash, transaction& tx)
         const override;
 
     private:

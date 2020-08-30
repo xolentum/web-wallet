@@ -56,7 +56,7 @@ if (NOT EXISTS ${XOLENTUM_BUILD_DIR})
 endif()
 
 
-if (NOT EXISTS ${Xolentum_BUILD_DIR})
+if (NOT EXISTS ${XOLENTUM_BUILD_DIR})
   message(FATAL_ERROR "Xolentum libraries not found in: ${XOLENTUM_BUILD_DIR}")
 endif()
 
@@ -110,7 +110,7 @@ foreach (l ${LIBS})
 			NO_DEFAULT_PATH
 			)
 
-	set(Xol_${L}_LIBRARIES ${Xmr_${L}_LIBRARY})
+	set(Xol_${L}_LIBRARIES ${Xol_${L}_LIBRARY})
 
 	message(STATUS FindXolentum " Xol_${L}_LIBRARIES ${Xol_${L}_LIBRARY}")
 

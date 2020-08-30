@@ -20,7 +20,7 @@ get_default_lmdb_folder(network_type nettype)
 {
     // default path to xolentum folder
     // on linux this is /home/<username>/.xolentum
-    string default_monero_dir = tools::get_default_data_dir();
+    string default_xolentum_dir = tools::get_default_data_dir();
 
     if (nettype == cryptonote::network_type::TESTNET)
         default_xolentum_dir += "/testnet";
